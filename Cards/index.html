@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
+
+</head>
+
+<body>
+
+
+    <div id="cards"></div>
+
+
+    <script>
+        let numberCards = prompt("Сколько создать карточек?");
+        myCard = [{
+            poster: "card1.jpg",
+            title1: "Тайная жизнь",
+            title2: "домашних животных 2",
+            cost: 50,
+            currency: "руб.",
+            type: "blu-ray.png",
+            sales: "sale.png",
+            action: true,
+            rating: 4,
+            but: "order.jpg"
+        }, {
+            poster: "toy4.jpg",
+            title1: "История игрушек 4",
+            title2: "Приключения Вилкинса",
+            cost: 60,
+            currency: "руб.",
+            type: "blu-ray.png",
+            sales: "sale.png",
+            action: false,
+            rating: 3.5,
+            but: "order.jpg"
+        }, {
+            poster: "ferd.jpg",
+            title1: "Фердинанд",
+            title2: "Побег из коровника",
+            cost: 40,
+            currency: "руб.",
+            type: "blu-ray.png",
+            sales: "sale.png",
+            action: true,
+            rating: 0.5,
+            but: "order.jpg"
+        }]
+        let s = "";
+
+
+        for (l = 0; l < numberCards; l++) {
+            poster = myCard[l].poster,
+                title1 = myCard[l].title1,
+                title2 = myCard[l].title2,
+                cost = myCard[l].cost,
+                currency = myCard[l].currency,
+                type = myCard[l].type,
+                sales = myCard[l].sales,
+                action = myCard[l].action,
+                rating = myCard[l].rating,
+                but = myCard[l].but
+
+            let fullCost = `${cost},00 ${currency}`;
+
+
+            let saleCost = `${Math.round(cost * .9)},00 ${currency}`;
+
+
+            let stars = "";
+            if (rating == 0.5) {
+                stars += '<span class="material-icons">star_half</span>'
+                for (i = 1; i <= 4; i++) {
+                    stars += '<span class="material-icons">star_border</span>'
+                }
+            } else {
+                for (i = 1; i <= 5; i++) {
+
+
+                    if (rating % 1 == 0 && i <= rating) {
+                        stars += '<span class="material-icons">star</span>';
+                    } else if (rating * 10 % 5 == 0 && i <= rating) {
+                        for (i = 1; i <= Math.floor(rating); i++) {
+                            stars += '<span class="material-icons">star</span>'
+                        }
+                        stars += '<span class="material-icons">star_half</span>';
+                        for (i > Math.floor(rating + 1); i < 5; i++) {
+                            stars += '<span class="material-icons">star_border</span>';
+                        }
+                    } else if (rating % 1 == 0 && i <= 5)
+
+                        stars += '<span class="material-icons">star_border</span>';
+                }
+            }
+
+
+            let doSales = "";
+            let znakAction = "";
+
+            if (action) {
+                doSales = `<div>${saleCost}</div>`;
+                znakAction = `<img style = "opacity: 1" src="images/${sales}" alt="">`
+            } else {
+                `<img style = "opacity: 0" src="images/${sales}" alt="">`
+
+
+            }
+
+
+
+            s += `
+    
+    <div class="card">
+    <div id="poster">
+    <img src="images/${poster}" alt="">
+    <img src="images/${type}" alt="">
+    ${znakAction}
+    </div>
+    
+    <div id="title">
+        <div>${title1}</div>
+        <div>${title2}</div>
+    </div>
+    <div id="price">
+        ${doSales}
+        <div>${fullCost}</div>    
+    </div>
+    <div id="rank">
+        ${stars}
+    </div>
+    <div id="order">
+        <img src="images/${but}" alt="">
+    </div>
+
+</div>
+  `
+        };
+
+        cards.innerHTML = s;
+    </script>
+
+</body>
+
+</html>
